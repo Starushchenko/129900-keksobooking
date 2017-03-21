@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Ярослав Старущенко](https://up.htmlacademy.ru/javascript/9/user/129900).
-* Наставник: `Неизвестно`.
+* Наставник: [Игорь Алексеенко](https://htmlacademy.ru/profile/o0).
 
 ---
 

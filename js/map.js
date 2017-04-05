@@ -6,7 +6,6 @@ var comfortLevels = ['Большая уютная квартира', 'Мален
 var lodgeTypes = ['flat', 'house', 'bungalo'];
 var checkTimes = ['12:00', '13:00', '14:00'];
 var pinMap = document.querySelector('.tokyo__pin-map');
-var lodgePins = document.createDocumentFragment();
 
 var randomNumber = function (min, max) {
   return Math.round(Math.random() * (max - min) + min);
@@ -56,6 +55,7 @@ var createAdsCollection = function () {
 };
 
 var createLodgePins = function () {
+  var lodgePins = document.createDocumentFragment();
   for (var i = 0; i < adsCollection.length; i++) {
     var lodgePin = document.createElement('div');
     lodgePin.className = 'pin';
@@ -65,6 +65,7 @@ var createLodgePins = function () {
 
     lodgePins.appendChild(lodgePin);
   }
+  return lodgePins;
 };
 
 var renderPins = function (parent, renderObject) {
@@ -116,7 +117,6 @@ var renderSideAd = function (objectElement) {
 };
 
 createAdsCollection();
-createLodgePins();
-renderPins(pinMap, lodgePins);
+renderPins(pinMap, createLodgePins());
 renderSideAd(adsCollection[0]);
 

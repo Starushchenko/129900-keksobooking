@@ -6,6 +6,7 @@ var comfortLevels = ['Большая уютная квартира', 'Мален
 var lodgeTypes = ['flat', 'house', 'bungalo'];
 var checkTimes = ['12:00', '13:00', '14:00'];
 var pinMap = document.querySelector('.tokyo__pin-map');
+var lodgeTemplate = document.querySelector('#lodge-template').content;
 
 var randomNumber = function (min, max) {
   return Math.round(Math.random() * (max - min) + min);
@@ -68,37 +69,30 @@ var createLodgePins = function () {
   return lodgePins;
 };
 
-var renderPins = function (parent, renderObject) {
-  parent.appendChild(renderObject);
+var checkLodgeType = function (ad) {
+  switch (ad.offer.type) {
+    case 'flat':
+      return 'Квартира';
+    case 'bungalo':
+      return 'Бунгало';
+    case 'house':
+      return 'Дом';
+    default:
+      return 'Жильё';
+  }
 };
 
 var createAdLayout = function (adElement) {
-  var lodgeTemplate = document.querySelector('#lodge-template').content;
   var lodgeLayout = lodgeTemplate.cloneNode(true);
   lodgeLayout.querySelector('.lodge__title').innerHTML = adElement.offer.title;
   lodgeLayout.querySelector('.lodge__price').innerHTML = adElement.offer.price + ' &#x20bd;/ночь';
-
-  var checkLodgeType = function (elem) {
-    switch (elem.offer.type) {
-      case 'flat':
-        return 'Квартира';
-      case 'bungalo':
-        return 'Бунгало';
-      case 'house':
-        return 'Дом';
-      default:
-        return 'Жильё';
-    }
-  };
 
   lodgeLayout.querySelector('.lodge__type').innerHTML = checkLodgeType(adElement);
   lodgeLayout.querySelector('.lodge__rooms-and-guests').innerHTML = 'Для ' + adElement.offer.guests + ' гостей в ' + adElement.offer.rooms + ' комнатах';
   lodgeLayout.querySelector('.lodge__checkin-time').innerHTML = 'Заезд после ' + adElement.offer.checkin + ', выезд до ' + adElement.offer.checkout;
 
   for (var i = 0; i < adElement.offer.features.length; i++) {
-    var featureItem = document.createElement('span');
-    featureItem.className = 'feature__image feature__image--' + adElement.offer.features[i];
-    lodgeLayout.querySelector('.lodge__features').appendChild(featureItem);
+    lodgeLayout.querySelector('.lodge__features').innerHTML += '<span class="feature__image feature__image--' + adElement.offer.features[i] + '"></span>';
   }
 
   lodgeLayout.querySelector('.lodge__description').innerHTML = adElement.offer.description;
@@ -117,6 +111,6 @@ var renderSideAd = function (objectElement) {
 };
 
 createAdsCollection();
-renderPins(pinMap, createLodgePins());
+pinMap.appendChild(createLodgePins());
 renderSideAd(adsCollection[0]);
 

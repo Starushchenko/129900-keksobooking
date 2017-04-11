@@ -114,3 +114,59 @@ createAdsCollection();
 pinMap.appendChild(createLodgePins());
 renderSideAd(adsCollection[0]);
 
+var noticeForm = document.querySelector('.notice__form');
+var checkInTimeSelect = document.querySelector('#time');
+var checkOutTimeSelect = document.querySelector('#timeout');
+var lodgeTypeSelect = document.querySelector('#type');
+var lodgePriceInput = document.querySelector('#price');
+var roomNumberSelect = document.querySelector('#room_number');
+var lodgeCapacitySelect = document.querySelector('#capacity');
+var equalizeCheckOutTime = function () {
+  switch (checkInTimeSelect.value) {
+    case 'После 12':
+      return checkOutTimeSelect.value = 'Выезд до 12';
+    case 'После 13':
+      return checkOutTimeSelect.value = 'Выезд до 13';
+    case 'После 14':
+      return checkOutTimeSelect.value = 'Выезд до 14';
+    default:
+      return checkOutTimeSelect.value = 'Выезд до 12';
+  }
+};
+var setMinPrice = function() {
+  switch (lodgeTypeSelect.value) {
+    case 'Квартира':
+      return lodgePriceInput.setAttribute('min', '1000');
+    case 'Лачуга':
+      return lodgePriceInput.setAttribute('min', '0');
+    case 'Дворец':
+      return lodgePriceInput.setAttribute('min', '1000000');
+    default:
+      return lodgePriceInput.setAttribute('min', '1000');
+  }
+};
+var setDefaultCapacity = function() {
+  switch (roomNumberSelect.value) {
+    case '1 комната':
+      return lodgeCapacitySelect.value = 'не для гостей';
+    case '2 комнаты':
+      return lodgeCapacitySelect.value = 'для 3 гостей';
+    case '100 комнат':
+      return lodgeCapacitySelect.value = 'для 3 гостей';
+    default:
+      return lodgeCapacitySelect.value = 'не для гостей';
+  }
+};
+
+checkInTimeSelect.addEventListener('change', function () {
+  equalizeCheckOutTime();
+})
+lodgeTypeSelect.addEventListener('change', function () {
+  setMinPrice();
+})
+roomNumberSelect.addEventListener('change', function () {
+  setDefaultCapacity();
+})
+noticeForm.addEventListener('submit', function () {
+  noticeForm.reset();
+})

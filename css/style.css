@@ -82,6 +82,10 @@ select option:hover {
     background-color: #ff6547;
 }
 
+input:invalid {
+    border: 1px solid #ff0000;
+}
+
 .feature {
     box-sizing: border-box;
     width: 70px;

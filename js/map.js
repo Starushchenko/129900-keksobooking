@@ -124,49 +124,62 @@ var lodgeCapacitySelect = document.querySelector('#capacity');
 var equalizeCheckOutTime = function () {
   switch (checkInTimeSelect.value) {
     case 'После 12':
-      return checkOutTimeSelect.value = 'Выезд до 12';
+      checkOutTimeSelect.value = 'Выезд до 12';
+      return checkOutTimeSelect;
     case 'После 13':
-      return checkOutTimeSelect.value = 'Выезд до 13';
+      checkOutTimeSelect.value = 'Выезд до 13';
+      return checkOutTimeSelect;
     case 'После 14':
-      return checkOutTimeSelect.value = 'Выезд до 14';
+      checkOutTimeSelect.value = 'Выезд до 14';
+      return checkOutTimeSelect;
     default:
-      return checkOutTimeSelect.value = 'Выезд до 12';
+      checkOutTimeSelect.value = 'Выезд до 12';
+      return checkOutTimeSelect;
   }
 };
-var setMinPrice = function() {
+var setMinPrice = function () {
   switch (lodgeTypeSelect.value) {
     case 'Квартира':
-      return lodgePriceInput.setAttribute('min', '1000');
+      lodgePriceInput.setAttribute('min', '1000');
+      return lodgePriceInput;
     case 'Лачуга':
-      return lodgePriceInput.setAttribute('min', '0');
+      lodgePriceInput.setAttribute('min', '0');
+      return lodgePriceInput;
     case 'Дворец':
-      return lodgePriceInput.setAttribute('min', '1000000');
+      lodgePriceInput.setAttribute('min', '1000000');
+      lodgePriceInput.removeAttribute('max');
+      return lodgePriceInput;
     default:
-      return lodgePriceInput.setAttribute('min', '1000');
+      lodgePriceInput.setAttribute('min', '1000');
+      return lodgePriceInput;
   }
 };
-var setDefaultCapacity = function() {
+var setDefaultCapacity = function () {
   switch (roomNumberSelect.value) {
     case '1 комната':
-      return lodgeCapacitySelect.value = 'не для гостей';
+      lodgeCapacitySelect.value = 'не для гостей';
+      return lodgeCapacitySelect;
     case '2 комнаты':
-      return lodgeCapacitySelect.value = 'для 3 гостей';
+      lodgeCapacitySelect.value = 'для 3 гостей';
+      return lodgeCapacitySelect;
     case '100 комнат':
-      return lodgeCapacitySelect.value = 'для 3 гостей';
+      lodgeCapacitySelect.value = 'для 3 гостей';
+      return lodgeCapacitySelect;
     default:
-      return lodgeCapacitySelect.value = 'не для гостей';
+      lodgeCapacitySelect.value = 'не для гостей';
+      return lodgeCapacitySelect;
   }
 };
 
 checkInTimeSelect.addEventListener('change', function () {
   equalizeCheckOutTime();
-})
+});
 lodgeTypeSelect.addEventListener('change', function () {
   setMinPrice();
-})
+});
 roomNumberSelect.addEventListener('change', function () {
   setDefaultCapacity();
-})
+});
 noticeForm.addEventListener('submit', function () {
   noticeForm.reset();
-})
+});

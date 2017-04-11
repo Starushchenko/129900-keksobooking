@@ -62,6 +62,7 @@ var createLodgePins = function () {
     lodgePin.className = 'pin';
     lodgePin.style.left = adsCollection[i].location.x + 'px';
     lodgePin.style.top = adsCollection[i].location.y + 'px';
+    lodgePin.setAttribute('tabindex', '0');
     lodgePin.innerHTML = '<img src="' + adsCollection[i].author.avatar + '" class="rounded" width="40" height="40">';
 
     lodgePins.appendChild(lodgePin);
@@ -112,5 +113,67 @@ var renderSideAd = function (objectElement) {
 
 createAdsCollection();
 pinMap.appendChild(createLodgePins());
-renderSideAd(adsCollection[0]);
 
+
+var pins = document.querySelectorAll('.pin');
+var dialog = document.querySelector('.dialog');
+var dialogClose = document.querySelector('.dialog__close');
+dialogClose.setAttribute('tabindex', '0');
+
+var initializePinActive = function (i) {
+  pins[i].addEventListener('click', function (evt) {
+    var activePin = document.querySelector('.pin--active');
+    if (activePin) {
+      activePin.classList.remove('pin--active');
+    }
+
+    evt.target.classList.add('pin--active');
+    dialog.style.display = 'block';
+
+    renderSideAd(adsCollection[i - 1]);
+    document.addEventListener('keydown', pinEscHandler);
+  });
+
+  pins[i].addEventListener('keydown', function (evt) {
+    var activePin = document.querySelector('.pin--active');
+    if (activePin) {
+      activePin.classList.remove('pin--active');
+    }
+    if (evt.keyCode === 13) {
+      evt.target.classList.add('pin--active');
+      dialog.style.display = 'block';
+
+      renderSideAd(adsCollection[i - 1]);
+      document.addEventListener('keydown', pinEscHandler);
+    }
+  });
+};
+
+for (var i = 0; i < pins.length; i++) {
+  initializePinActive(i);
+}
+
+var pinEscHandler = function (evt) {
+  if (evt.keyCode === 27) {
+    disactivatePin();
+  }
+};
+
+var disactivatePin = function () {
+  dialog.style.display = 'none';
+  var activePin = document.querySelector('.pin--active');
+  if (activePin) {
+    activePin.classList.remove('pin--active');
+  }
+  document.removeEventListener('keydown', pinEscHandler);
+};
+
+dialogClose.addEventListener('click', function (evt) {
+  disactivatePin();
+});
+
+dialogClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    disactivatePin();
+  }
+});

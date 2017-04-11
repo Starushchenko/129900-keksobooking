@@ -120,60 +120,56 @@ var dialog = document.querySelector('.dialog');
 var dialogClose = document.querySelector('.dialog__close');
 dialogClose.setAttribute('tabindex', '0');
 
-var initializePinActive = function (i) {
-  pins[i].addEventListener('click', function (evt) {
-    var activePin = document.querySelector('.pin--active');
-    if (activePin) {
-      activePin.classList.remove('pin--active');
-    }
+var deactivatePin = function () {
+  var activePin = document.querySelector('.pin--active');
+  if (activePin) {
+    activePin.classList.remove('pin--active');
+  }
+};
 
-    evt.target.classList.add('pin--active');
-    dialog.style.display = 'block';
+var pinEscHandler = function (evt) {
+  if (evt.keyCode === 27) {
+    deactivateMapElement();
+  }
+};
 
-    renderSideAd(adsCollection[i - 1]);
-    document.addEventListener('keydown', pinEscHandler);
+var activateMapElement = function (evt, adIndex) {
+  deactivatePin();
+  evt.currentTarget.classList.add('pin--active');
+  dialog.style.display = 'block';
+
+  renderSideAd(adsCollection[adIndex - 1]);
+  document.addEventListener('keydown', pinEscHandler);
+};
+
+var deactivateMapElement = function () {
+  dialog.style.display = 'none';
+  deactivatePin();
+  document.removeEventListener('keydown', pinEscHandler);
+};
+
+var enablePinEvents = function (index) {
+  pins[index].addEventListener('click', function (evt) {
+    activateMapElement(evt, index);
   });
 
-  pins[i].addEventListener('keydown', function (evt) {
-    var activePin = document.querySelector('.pin--active');
-    if (activePin) {
-      activePin.classList.remove('pin--active');
-    }
+  pins[index].addEventListener('keydown', function (evt) {
     if (evt.keyCode === 13) {
-      evt.target.classList.add('pin--active');
-      dialog.style.display = 'block';
-
-      renderSideAd(adsCollection[i - 1]);
-      document.addEventListener('keydown', pinEscHandler);
+      activateMapElement(evt, index);
     }
   });
 };
 
 for (var i = 0; i < pins.length; i++) {
-  initializePinActive(i);
+  enablePinEvents(i);
 }
 
-var pinEscHandler = function (evt) {
-  if (evt.keyCode === 27) {
-    disactivatePin();
-  }
-};
-
-var disactivatePin = function () {
-  dialog.style.display = 'none';
-  var activePin = document.querySelector('.pin--active');
-  if (activePin) {
-    activePin.classList.remove('pin--active');
-  }
-  document.removeEventListener('keydown', pinEscHandler);
-};
-
 dialogClose.addEventListener('click', function (evt) {
-  disactivatePin();
+  deactivateMapElement();
 });
 
 dialogClose.addEventListener('keydown', function (evt) {
   if (evt.keyCode === 13) {
-    disactivatePin();
+    deactivateMapElement();
   }
 });

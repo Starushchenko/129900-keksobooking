@@ -133,29 +133,31 @@ var pinEscHandler = function (evt) {
   }
 };
 
-var activateMapElement = function (evt, adIndex) {
+var activateMapElement = function (index) {
   deactivatePin();
-  evt.currentTarget.classList.add('pin--active');
-  dialog.style.display = 'block';
+  pins[index].classList.add('pin--active');
+  dialog.classList.remove('hidden');
 
-  renderSideAd(adsCollection[adIndex - 1]);
+  renderSideAd(adsCollection[index - 1]);
   document.addEventListener('keydown', pinEscHandler);
 };
 
 var deactivateMapElement = function () {
-  dialog.style.display = 'none';
   deactivatePin();
+  dialog.classList.add('hidden');
   document.removeEventListener('keydown', pinEscHandler);
 };
 
+activateMapElement(1);
+
 var enablePinEvents = function (index) {
   pins[index].addEventListener('click', function (evt) {
-    activateMapElement(evt, index);
+    activateMapElement(index);
   });
 
   pins[index].addEventListener('keydown', function (evt) {
     if (evt.keyCode === 13) {
-      activateMapElement(evt, index);
+      activateMapElement(index);
     }
   });
 };

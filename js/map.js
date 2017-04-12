@@ -184,7 +184,7 @@ var lodgePriceInput = document.querySelector('#price');
 var roomNumberSelect = document.querySelector('#room_number');
 var lodgeCapacitySelect = document.querySelector('#capacity');
 
-var equalizeCheckOutTime = function () {
+var synchronizeCheckTime = function () {
   switch (checkInTimeSelect.value) {
     case 'После 12':
       checkOutTimeSelect.value = 'Выезд до 12';
@@ -201,7 +201,7 @@ var equalizeCheckOutTime = function () {
   }
 };
 
-var associateLodgePrices = function () {
+var synchronizeLodgePrices = function () {
   switch (lodgeTypeSelect.value) {
     case 'Квартира':
       lodgePriceInput.setAttribute('min', '1000');
@@ -219,7 +219,7 @@ var associateLodgePrices = function () {
   }
 };
 
-var associateLodgeCapacity = function () {
+var synchronizeLodgeCapacity = function () {
   switch (roomNumberSelect.value) {
     case '1 комната':
       lodgeCapacitySelect.value = 'не для гостей';
@@ -236,19 +236,32 @@ var associateLodgeCapacity = function () {
   }
 };
 
+var removeErrorInputMessage = function (evt) {
+  var noticeErrorInputs = document.querySelectorAll('.error');
+  for (var k = 0; k < noticeErrorInputs.length; k++) {
+    noticeErrorInputs[k].addEventListener('input', function () {
+      evt.target.classList.remove('error');
+    });
+  }
+};
+
 checkInTimeSelect.addEventListener('change', function () {
-  equalizeCheckOutTime();
+  synchronizeCheckTime();
 });
 
 lodgeTypeSelect.addEventListener('change', function () {
-  associateLodgePrices();
+  synchronizeLodgePrices();
 });
 
 roomNumberSelect.addEventListener('change', function () {
-  associateLodgeCapacity();
+  synchronizeLodgeCapacity();
 });
 
 noticeForm.addEventListener('invalid', function (evt) {
-  evt.target.style.border = '1px solid #ff0000';
-  noticeForm.reset();
+  evt.target.classList.add('error');
+  removeErrorInputMessage(evt);
 }, true);
+
+noticeForm.addEventListener('submit', function () {
+  noticeForm.reset();
+});

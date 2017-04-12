@@ -656,7 +656,10 @@ select option:hover {
     border-radius: 50%;
 }
 
-
 .hidden {
 	  display: none;
+}
+
+.error {
+    border: 1px solid #ff0000 !important;
 }

@@ -62,6 +62,7 @@ var createLodgePins = function () {
     lodgePin.className = 'pin';
     lodgePin.style.left = adsCollection[i].location.x + 'px';
     lodgePin.style.top = adsCollection[i].location.y + 'px';
+    lodgePin.setAttribute('tabindex', '0');
     lodgePin.innerHTML = '<img src="' + adsCollection[i].author.avatar + '" class="rounded" width="40" height="40">';
 
     lodgePins.appendChild(lodgePin);
@@ -112,7 +113,68 @@ var renderSideAd = function (objectElement) {
 
 createAdsCollection();
 pinMap.appendChild(createLodgePins());
-renderSideAd(adsCollection[0]);
+
+
+var pins = document.querySelectorAll('.pin');
+var dialog = document.querySelector('.dialog');
+var dialogClose = document.querySelector('.dialog__close');
+dialogClose.setAttribute('tabindex', '0');
+
+var deactivatePin = function () {
+  var activePin = document.querySelector('.pin--active');
+  if (activePin) {
+    activePin.classList.remove('pin--active');
+  }
+};
+
+var pinEscHandler = function (evt) {
+  if (evt.keyCode === 27) {
+    deactivateMapElement();
+  }
+};
+
+var activateMapElement = function (index) {
+  deactivatePin();
+  pins[index].classList.add('pin--active');
+  dialog.classList.remove('hidden');
+
+  renderSideAd(adsCollection[index - 1]);
+  document.addEventListener('keydown', pinEscHandler);
+};
+
+var deactivateMapElement = function () {
+  deactivatePin();
+  dialog.classList.add('hidden');
+  document.removeEventListener('keydown', pinEscHandler);
+};
+
+activateMapElement(1);
+
+var enablePinEvents = function (index) {
+  pins[index].addEventListener('click', function (evt) {
+    activateMapElement(index);
+  });
+
+  pins[index].addEventListener('keydown', function (evt) {
+    if (evt.keyCode === 13) {
+      activateMapElement(index);
+    }
+  });
+};
+
+for (var i = 0; i < pins.length; i++) {
+  enablePinEvents(i);
+}
+
+dialogClose.addEventListener('click', function (evt) {
+  deactivateMapElement();
+});
+
+dialogClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    deactivateMapElement();
+  }
+});
 
 var noticeForm = document.querySelector('.notice__form');
 var checkInTimeSelect = document.querySelector('#time');
@@ -121,65 +183,72 @@ var lodgeTypeSelect = document.querySelector('#type');
 var lodgePriceInput = document.querySelector('#price');
 var roomNumberSelect = document.querySelector('#room_number');
 var lodgeCapacitySelect = document.querySelector('#capacity');
+
 var equalizeCheckOutTime = function () {
   switch (checkInTimeSelect.value) {
     case 'После 12':
       checkOutTimeSelect.value = 'Выезд до 12';
-      return checkOutTimeSelect;
+      break;
     case 'После 13':
       checkOutTimeSelect.value = 'Выезд до 13';
-      return checkOutTimeSelect;
+      break;
     case 'После 14':
       checkOutTimeSelect.value = 'Выезд до 14';
-      return checkOutTimeSelect;
+      break;
     default:
       checkOutTimeSelect.value = 'Выезд до 12';
-      return checkOutTimeSelect;
+      break;
   }
 };
-var setMinPrice = function () {
+
+var associateLodgePrices = function () {
   switch (lodgeTypeSelect.value) {
     case 'Квартира':
       lodgePriceInput.setAttribute('min', '1000');
-      return lodgePriceInput;
+      break;
     case 'Лачуга':
       lodgePriceInput.setAttribute('min', '0');
-      return lodgePriceInput;
+      break;
     case 'Дворец':
       lodgePriceInput.setAttribute('min', '1000000');
       lodgePriceInput.removeAttribute('max');
-      return lodgePriceInput;
+      break;
     default:
       lodgePriceInput.setAttribute('min', '1000');
-      return lodgePriceInput;
+      break;
   }
 };
-var setDefaultCapacity = function () {
+
+var associateLodgeCapacity = function () {
   switch (roomNumberSelect.value) {
     case '1 комната':
       lodgeCapacitySelect.value = 'не для гостей';
-      return lodgeCapacitySelect;
+      break;
     case '2 комнаты':
       lodgeCapacitySelect.value = 'для 3 гостей';
-      return lodgeCapacitySelect;
+      break;
     case '100 комнат':
       lodgeCapacitySelect.value = 'для 3 гостей';
-      return lodgeCapacitySelect;
+      break;
     default:
       lodgeCapacitySelect.value = 'не для гостей';
-      return lodgeCapacitySelect;
+      break;
   }
 };
 
 checkInTimeSelect.addEventListener('change', function () {
   equalizeCheckOutTime();
 });
+
 lodgeTypeSelect.addEventListener('change', function () {
-  setMinPrice();
+  associateLodgePrices();
 });
+
 roomNumberSelect.addEventListener('change', function () {
-  setDefaultCapacity();
+  associateLodgeCapacity();
 });
-noticeForm.addEventListener('submit', function () {
+
+noticeForm.addEventListener('invalid', function (evt) {
+  evt.target.style.border = '1px solid #ff0000';
   noticeForm.reset();
-});
+}, true);

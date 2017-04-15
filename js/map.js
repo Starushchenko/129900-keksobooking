@@ -236,12 +236,15 @@ var synchronizeLodgeCapacity = function () {
   }
 };
 
-var removeErrorInputMessage = function (evt) {
+var errorFieldInputHandler = function (evt) {
+  evt.currentTarget.classList.remove('error');
+  evt.target.removeEventListener('input', errorFieldInputHandler);
+};
+
+var removeErrorInputMessage = function () {
   var noticeErrorInputs = document.querySelectorAll('.error');
   for (var k = 0; k < noticeErrorInputs.length; k++) {
-    noticeErrorInputs[k].addEventListener('input', function () {
-      evt.target.classList.remove('error');
-    });
+    noticeErrorInputs[k].addEventListener('input', errorFieldInputHandler);
   }
 };
 
@@ -259,9 +262,10 @@ roomNumberSelect.addEventListener('change', function () {
 
 noticeForm.addEventListener('invalid', function (evt) {
   evt.target.classList.add('error');
-  removeErrorInputMessage(evt);
+  removeErrorInputMessage();
 }, true);
 
-noticeForm.addEventListener('submit', function () {
+noticeForm.addEventListener('submit', function (evt) {
+  evt.preventDefault();
   noticeForm.reset();
 });

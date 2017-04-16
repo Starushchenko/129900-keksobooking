@@ -241,11 +241,8 @@ var errorFieldInputHandler = function (evt) {
   evt.target.removeEventListener('input', errorFieldInputHandler);
 };
 
-var removeErrorInputMessage = function () {
-  var noticeErrorInputs = document.querySelectorAll('.error');
-  for (var k = 0; k < noticeErrorInputs.length; k++) {
-    noticeErrorInputs[k].addEventListener('input', errorFieldInputHandler);
-  }
+var removeErrorInputMessage = function (errorElements) {
+  errorElements.addEventListener('input', errorFieldInputHandler);
 };
 
 checkInTimeSelect.addEventListener('change', function () {
@@ -262,7 +259,7 @@ roomNumberSelect.addEventListener('change', function () {
 
 noticeForm.addEventListener('invalid', function (evt) {
   evt.target.classList.add('error');
-  removeErrorInputMessage();
+  removeErrorInputMessage(evt.target);
 }, true);
 
 noticeForm.addEventListener('submit', function (evt) {

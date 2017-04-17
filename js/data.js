@@ -44,8 +44,6 @@ window.data = (function () {
   };
 
   return {
-    adsCollection: createAdsCollection()/* ,
-    lodgePins: createLodgePins(),
-    adLayout: createAdLayout*/
+    adsCollection: createAdsCollection()
   };
 })();

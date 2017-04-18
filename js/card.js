@@ -44,8 +44,40 @@ window.card = (function () {
     ownerAvatar.setAttribute('src', objectElement.author.avatar);
   };
 
+  var dialog = document.querySelector('.dialog');
+  var dialogClose = document.querySelector('.dialog__close');
+  dialogClose.setAttribute('tabindex', '0');
+
+  var pinEscHandler = function (evt) {
+    if (evt.keyCode === 27) {
+      deactivateMapElement();
+    }
+  };
+
+  var activateMapElement = function (pin, cb) {
+    dialog.classList.remove('hidden');
+    document.addEventListener('keydown', pinEscHandler);
+
+    dialogClose.addEventListener('click', function (evt) {
+      deactivateMapElement(cb);
+    });
+
+    dialogClose.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === 13) {
+        deactivateMapElement(cb);
+      }
+    });
+  };
+
+  var deactivateMapElement = function (cb) {
+    cb();
+    dialog.classList.add('hidden');
+    document.removeEventListener('keydown', pinEscHandler);
+  };
+
+
   return {
-    renderSideAd: renderSideAd/* ,
-    adLayout: createAdLayout*/
+    renderSideAd: renderSideAd,
+    activateMapElement: activateMapElement
   };
 })();

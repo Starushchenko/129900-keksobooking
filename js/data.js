@@ -44,6 +44,6 @@ window.data = (function () {
   };
 
   return {
-    adsCollection: createAdsCollection()
+    createAdsCollection: createAdsCollection
   };
 })();

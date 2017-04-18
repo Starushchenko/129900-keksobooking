@@ -1,60 +1,56 @@
 'use strict';
 
 window.pins = (function () {
-  var createLodgePins = function (adsList) {
+
+  var pinClickHandler = null;
+
+  /*
+   * Создание одного пина из элемента массива с данными. Внутри описания элемента задаем обработчик события на клик. В момент объявления он равен null(pinData)
+   * Затем - функция отрисовки пинов по циклу элементов массива.
+   * Callback перезаписывает pinClickHandler, который опеределен в createLodgePin как функция, исполняемая по клику на пин
+   * При вызове renderPins в map.js используя pinData параметром функции callback, pinData будет равна параметру передаваемому в createLodgePin. Цикл вызовов createLodgePin() происходит с элементами массива adsList[i]. Следовательно, pinClickHandler использует параметром текущий adsList[i].
+   */
+
+  var createLodgePin = function (pinData) {
+    var lodgePin = document.createElement('div');
+    lodgePin.className = 'pin';
+    lodgePin.style.left = pinData.location.x + 'px';
+    lodgePin.style.top = pinData.location.y + 'px';
+    lodgePin.setAttribute('tabindex', '0');
+    lodgePin.innerHTML = '<img src="' + pinData.author.avatar + '" class="rounded" width="40" height="40">';
+    lodgePin.addEventListener('click', function (evt) {
+      pinClickHandler(pinData, lodgePin);
+    });
+    return lodgePin;
+  };
+
+  var renderPins = function (renderPlace, adsList, callback) {
+    pinClickHandler = callback;
     var lodgePins = document.createDocumentFragment();
     for (var i = 0; i < adsList.length; i++) {
-      var lodgePin = document.createElement('div');
-      lodgePin.className = 'pin';
-      lodgePin.style.left = adsList[i].location.x + 'px';
-      lodgePin.style.top = adsList[i].location.y + 'px';
-      lodgePin.setAttribute('tabindex', '0');
-      lodgePin.innerHTML = '<img src="' + adsList[i].author.avatar + '" class="rounded" width="40" height="40">';
-
-      lodgePins.appendChild(lodgePin);
+      lodgePins.appendChild(createLodgePin(adsList[i]));
     }
-    return lodgePins;
+    renderPlace.appendChild(lodgePins);
   };
 
-  var renderPins = function (renderPlace, adsList) {
-    renderPlace.appendChild(createLodgePins(adsList));
-  };
 
-  var deactivatePin = function () {
+  var setPinInactive = function () {
     var activePin = document.querySelector('.pin--active');
     if (activePin) {
       activePin.classList.remove('pin--active');
     }
   };
 
-  var pinEscHandler = function (evt) {
-    if (evt.keyCode === 27) {
-      deactivateMapElement();
-    }
+  var setPinActive = function (pin) {
+    setPinInactive();
+    pin.classList.add('pin--active');
   };
-
-
-  /* activateMapElement(1); */
-
-  var enablePinEvents = function (pin, action) {
-    pin.addEventListener('click', function (evt) {
-      /* activateMapElement(pins, index);*/
-      action();
-    });
-
-    pin.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === 13) {
-        /* activateMapElement(pins, index);*/
-        action();
-      }
-    });
-  };
-
 
   return {
     renderPins: renderPins,
-    enablePinEvents: enablePinEvents,
-    deactivatePin: deactivatePin
+    setPinActive: setPinActive,
+    setPinInactive: setPinInactive
   };
+
 
 })();

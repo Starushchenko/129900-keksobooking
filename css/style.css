@@ -659,3 +659,7 @@ select option:hover {
 .hidden {
 	  display: none;
 }
+
+.error {
+    border: 1px solid #ff0000 !important;
+}

@@ -32,7 +32,6 @@ window.card = (function () {
     return lodgeLayout;
   };
 
-
   var renderSideAd = function (objectElement) {
     var template = createAdLayout(objectElement);
 
@@ -48,15 +47,19 @@ window.card = (function () {
   var dialogClose = document.querySelector('.dialog__close');
   dialogClose.setAttribute('tabindex', '0');
 
-  var pinEscHandler = function (evt) {
+ /* var pinEscHandler = function (evt) {
     if (evt.keyCode === 27) {
       deactivateMapElement();
     }
-  };
+  };*/
 
   var activateMapElement = function (pin, cb) {
     dialog.classList.remove('hidden');
-    document.addEventListener('keydown', pinEscHandler);
+    document.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === 27) {
+        deactivateMapElement(cb);
+      }
+    });
 
     dialogClose.addEventListener('click', function (evt) {
       deactivateMapElement(cb);
@@ -72,9 +75,8 @@ window.card = (function () {
   var deactivateMapElement = function (cb) {
     cb();
     dialog.classList.add('hidden');
-    document.removeEventListener('keydown', pinEscHandler);
+    /* document.removeEventListener('keydown', pinEscHandler);*/
   };
-
 
   return {
     renderSideAd: renderSideAd,

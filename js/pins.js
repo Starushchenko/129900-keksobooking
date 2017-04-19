@@ -2,13 +2,13 @@
 
 window.pins = (function () {
 
-  var pinClickHandler = null;
+  var pinEventHandler = null;
 
   /*
    * Создание одного пина из элемента массива с данными. Внутри описания элемента задаем обработчик события на клик. В момент объявления он равен null(pinData)
    * Затем - функция отрисовки пинов по циклу элементов массива.
-   * Callback перезаписывает pinClickHandler, который опеределен в createLodgePin как функция, исполняемая по клику на пин
-   * При вызове renderPins в map.js используя pinData параметром функции callback, pinData будет равна параметру передаваемому в createLodgePin. Цикл вызовов createLodgePin() происходит с элементами массива adsList[i]. Следовательно, pinClickHandler использует параметром текущий adsList[i].
+   * Callback перезаписывает pinEventHandler, который опеределен в createLodgePin как функция, исполняемая по клику на пин
+   * При вызове renderPins в map.js используя pinData параметром функции callback, pinData будет равна параметру передаваемому в createLodgePin. Цикл вызовов createLodgePin() происходит с элементами массива adsList[i]. Следовательно, pinEventHandler использует параметром текущий adsList[i].
    */
 
   var createLodgePin = function (pinData) {
@@ -19,13 +19,18 @@ window.pins = (function () {
     lodgePin.setAttribute('tabindex', '0');
     lodgePin.innerHTML = '<img src="' + pinData.author.avatar + '" class="rounded" width="40" height="40">';
     lodgePin.addEventListener('click', function (evt) {
-      pinClickHandler(pinData, lodgePin);
+      pinEventHandler(pinData, lodgePin);
+    });
+    lodgePin.addEventListener('keydown', function (evt) {
+      if (evt.keyCode === 13) {
+        pinEventHandler(pinData, lodgePin);
+      }
     });
     return lodgePin;
   };
 
   var renderPins = function (renderPlace, adsList, callback) {
-    pinClickHandler = callback;
+    pinEventHandler = callback;
     var lodgePins = document.createDocumentFragment();
     for (var i = 0; i < adsList.length; i++) {
       lodgePins.appendChild(createLodgePin(adsList[i]));
@@ -51,6 +56,4 @@ window.pins = (function () {
     setPinActive: setPinActive,
     setPinInactive: setPinInactive
   };
-
-
 })();

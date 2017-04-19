@@ -9,4 +9,3 @@ window.pins.renderPins(pinMap, window.data.createAdsCollection(), function (pind
     window.pins.setPinInactive();
   });
 });
-

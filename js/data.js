@@ -1,6 +1,6 @@
 'use strict';
 
-window.data = (function () {
+window.getAdsCollection = (function () {
 
   var ADS_COLLECTION_SIZE = 8;
   var adsCollection = [];
@@ -8,7 +8,7 @@ window.data = (function () {
   var lodgeTypes = ['flat', 'house', 'bungalo'];
   var checkTimes = ['12:00', '13:00', '14:00'];
 
-  var createAdsCollection = function () {
+  var getAdsCollection = function () {
     for (var i = 0; i < ADS_COLLECTION_SIZE; i++) {
       var lodgeFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
       var randomFeatureLength = window.utils.randomArrLength(lodgeFeatures);
@@ -43,7 +43,5 @@ window.data = (function () {
     return adsCollection;
   };
 
-  return {
-    createAdsCollection: createAdsCollection
-  };
+  return getAdsCollection;
 })();

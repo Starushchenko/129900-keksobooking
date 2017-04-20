@@ -1,6 +1,6 @@
 'use strict';
 
-window.card = (function () {
+window.showCard = (function () {
   var checkLodgeType = function (ad) {
     switch (ad.offer.type) {
       case 'flat':
@@ -46,40 +46,42 @@ window.card = (function () {
   var dialog = document.querySelector('.dialog');
   var dialogClose = document.querySelector('.dialog__close');
   dialogClose.setAttribute('tabindex', '0');
+  var closeHandler = null;
 
- /* var pinEscHandler = function (evt) {
+  var pinEscHandler = function (evt) {
     if (evt.keyCode === 27) {
-      deactivateMapElement();
+      hideCard();
     }
-  };*/
+  };
 
-  var activateMapElement = function (pin, cb) {
+  var showCard = function (handler, cb) {
+    closeHandler = cb;
     dialog.classList.remove('hidden');
-    document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === 27) {
-        deactivateMapElement(cb);
-      }
-    });
+
+    renderSideAd(handler);
+
+    document.addEventListener('keydown', pinEscHandler);
 
     dialogClose.addEventListener('click', function (evt) {
-      deactivateMapElement(cb);
+      hideCard();
     });
 
     dialogClose.addEventListener('keydown', function (evt) {
       if (evt.keyCode === 13) {
-        deactivateMapElement(cb);
+        hideCard();
       }
     });
   };
 
-  var deactivateMapElement = function (cb) {
-    cb();
+  var hideCard = function () {
     dialog.classList.add('hidden');
-    /* document.removeEventListener('keydown', pinEscHandler);*/
+    if (typeof closeHandler === 'function') {
+      closeHandler();
+      closeHandler = null;
+    }
+
+    document.removeEventListener('keydown', pinEscHandler);
   };
 
-  return {
-    renderSideAd: renderSideAd,
-    activateMapElement: activateMapElement
-  };
+  return showCard;
 })();

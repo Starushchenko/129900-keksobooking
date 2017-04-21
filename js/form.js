@@ -6,10 +6,10 @@
   var checkOutTimeSelect = document.querySelector('#timeout');
   var lodgeTypeSelect = document.querySelector('#type');
   var lodgePriceInput = document.querySelector('#price');
-  var roomNumberSelect = document.querySelector('#room_number');
+  var roomAmountSelect = document.querySelector('#room_number');
   var lodgeCapacitySelect = document.querySelector('#capacity');
 
-  var synchronizeCheckTime = function () {
+  /* var synchronizeCheckTime = function () {
     switch (checkInTimeSelect.value) {
       case 'После 12':
         checkOutTimeSelect.value = 'Выезд до 12';
@@ -45,7 +45,7 @@
   };
 
   var synchronizeLodgeCapacity = function () {
-    switch (roomNumberSelect.value) {
+    switch (roomAmountSelect.value) {
       case '1 комната':
         lodgeCapacitySelect.value = 'не для гостей';
         break;
@@ -60,6 +60,14 @@
         break;
     }
   };
+*/
+  var syncValues = function (element, value) {
+    element.value = value;
+  };
+
+  var syncValueWithMin = function (element, value) {
+    element.setAttribute('min', value);
+  };
 
   var removeErrorInputMessage = function (evt) {
     var noticeErrorInputs = document.querySelectorAll('.error');
@@ -71,15 +79,15 @@
   };
 
   checkInTimeSelect.addEventListener('change', function () {
-    synchronizeCheckTime();
+    window.synchronizeFields(checkInTimeSelect, checkOutTimeSelect, ['После 12', 'После 13', 'После 14'], ['Выезд до 12', 'Выезд до 13', 'Выезд до 14'], syncValues);
   });
 
   lodgeTypeSelect.addEventListener('change', function () {
-    synchronizeLodgePrices();
+    window.synchronizeFields(lodgeTypeSelect, lodgePriceInput, ['Квартира', 'Лачуга', 'Дворец'], ['1000', '0', '1000000'], syncValueWithMin);
   });
 
-  roomNumberSelect.addEventListener('change', function () {
-    synchronizeLodgeCapacity();
+  roomAmountSelect.addEventListener('change', function () {
+    window.synchronizeFields(roomAmountSelect, lodgeCapacitySelect, ['1 комната', '2 комнаты', '100 комнат'], ['не для гостей', 'для 3 гостей', 'для 3 гостей'], syncValues);
   });
 
   noticeForm.addEventListener('invalid', function (evt) {

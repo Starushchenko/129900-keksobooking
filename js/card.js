@@ -48,7 +48,17 @@ window.showCard = (function () {
   dialogClose.setAttribute('tabindex', '0');
   var closeHandler = null;
 
-  var pinEscHandler = function (evt) {
+  var cardClickHandler = function (evt) {
+    hideCard();
+  };
+
+  var cardEnterHandler = function (evt) {
+    if (evt.keyCode === 13) {
+      hideCard();
+    }
+  };
+
+  var cardEscHandler = function (evt) {
     if (evt.keyCode === 27) {
       hideCard();
     }
@@ -60,17 +70,11 @@ window.showCard = (function () {
 
     renderSideAd(handler);
 
-    document.addEventListener('keydown', pinEscHandler);
+    document.addEventListener('keydown', cardEscHandler);
 
-    dialogClose.addEventListener('click', function (evt) {
-      hideCard();
-    });
+    dialogClose.addEventListener('click', cardClickHandler);
 
-    dialogClose.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === 13) {
-        hideCard();
-      }
-    });
+    dialogClose.addEventListener('keydown', cardEnterHandler);
   };
 
   var hideCard = function () {
@@ -80,7 +84,7 @@ window.showCard = (function () {
       closeHandler = null;
     }
 
-    document.removeEventListener('keydown', pinEscHandler);
+    document.removeEventListener('keydown', cardEscHandler);
   };
 
   return showCard;

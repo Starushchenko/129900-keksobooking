@@ -9,58 +9,6 @@
   var roomAmountSelect = document.querySelector('#room_number');
   var lodgeCapacitySelect = document.querySelector('#capacity');
 
-  /* var synchronizeCheckTime = function () {
-    switch (checkInTimeSelect.value) {
-      case 'После 12':
-        checkOutTimeSelect.value = 'Выезд до 12';
-        break;
-      case 'После 13':
-        checkOutTimeSelect.value = 'Выезд до 13';
-        break;
-      case 'После 14':
-        checkOutTimeSelect.value = 'Выезд до 14';
-        break;
-      default:
-        checkOutTimeSelect.value = 'Выезд до 12';
-        break;
-    }
-  };
-
-  var synchronizeLodgePrices = function () {
-    switch (lodgeTypeSelect.value) {
-      case 'Квартира':
-        lodgePriceInput.setAttribute('min', '1000');
-        break;
-      case 'Лачуга':
-        lodgePriceInput.setAttribute('min', '0');
-        break;
-      case 'Дворец':
-        lodgePriceInput.setAttribute('min', '1000000');
-        lodgePriceInput.removeAttribute('max');
-        break;
-      default:
-        lodgePriceInput.setAttribute('min', '1000');
-        break;
-    }
-  };
-
-  var synchronizeLodgeCapacity = function () {
-    switch (roomAmountSelect.value) {
-      case '1 комната':
-        lodgeCapacitySelect.value = 'не для гостей';
-        break;
-      case '2 комнаты':
-        lodgeCapacitySelect.value = 'для 3 гостей';
-        break;
-      case '100 комнат':
-        lodgeCapacitySelect.value = 'для 3 гостей';
-        break;
-      default:
-        lodgeCapacitySelect.value = 'не для гостей';
-        break;
-    }
-  };
-*/
   var syncValues = function (element, value) {
     element.value = value;
   };

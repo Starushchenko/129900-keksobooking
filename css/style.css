@@ -663,3 +663,15 @@ select option:hover {
 .error {
     border: 1px solid #ff0000 !important;
 }
+
+.load-error {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    padding: 20px;
+    background: rgba(255,255,255, 0.5);
+    border: 2px solid #d34a4a;
+    color: #d34a4a;
+    font-size: 20px;
+    font-weight: bold;
+}

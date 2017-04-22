@@ -1,6 +1,7 @@
 'use strict';
 
-var pinMap = document.querySelector('.tokyo__pin-map');
+var mapContainer = document.querySelector('.tokyo');
+var pinMap = mapContainer.querySelector('.tokyo__pin-map');
 
 var pinClickHandler = function (pindata, pin) {
   window.pins.setPinActive(pin);
@@ -11,7 +12,19 @@ var cardCloseHandler = function () {
   window.pins.setPinInactive();
 };
 
-window.pins.renderPins(pinMap, window.getAdsCollection(), pinClickHandler);
+var loadSuccessHandler = function (data) {
+  window.pins.renderPins(pinMap, data, pinClickHandler);
+};
+
+var loadErrorHandler = function (errorMessage) {
+  var node = document.createElement('div');
+
+  node.textContent = errorMessage;
+  node.classList.add('load-error');
+  mapContainer.insertAdjacentElement('afterbegin', node);
+};
+
+window.load('https://intensive-javascript-server-kjgvxfepjl.now.sh/keksobooking/data', loadSuccessHandler, loadErrorHandler);
 
 var pinHandle = document.querySelector('.pin__main');
 var addressField = document.querySelector('#address');
@@ -51,7 +64,7 @@ var mouseMoveHandler = function (moveEvt) {
   var newX = pinHandle.offsetLeft - shift.x;
   var newY = pinHandle.offsetTop - shift.y;
   if ((newX >= dragMapConstraints.minX && newX <= dragMapConstraints.maxX) &&
-      (newY >= dragMapConstraints.minY && newY <= dragMapConstraints.maxY)) {
+    (newY >= dragMapConstraints.minY && newY <= dragMapConstraints.maxY)) {
     pinHandle.style.left = newX + 'px';
     pinHandle.style.top = newY + 'px';
   }

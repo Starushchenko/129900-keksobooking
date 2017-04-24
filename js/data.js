@@ -8,7 +8,7 @@ window.getAdsCollection = (function () {
   var lodgeTypes = ['flat', 'house', 'bungalo'];
   var checkTimes = ['12:00', '13:00', '14:00'];
 
-  var getAdsCollection = function () {
+  return function () {
     for (var i = 0; i < ADS_COLLECTION_SIZE; i++) {
       var lodgeFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
       var randomFeatureLength = window.utils.randomArrLength(lodgeFeatures);
@@ -42,6 +42,4 @@ window.getAdsCollection = (function () {
     }
     return adsCollection;
   };
-
-  return getAdsCollection;
 })();

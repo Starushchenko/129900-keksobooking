@@ -16,7 +16,6 @@ var loadSuccessHandler = function (data) {
   window.pins.renderPins(pinMap, data, pinClickHandler);
 };
 
-
 var loadErrorHandler = function (errorMessage) {
   var node = document.createElement('div');
 

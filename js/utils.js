@@ -14,9 +14,20 @@ window.utils = (function () {
     return array;
   };
 
+  var disableDebounce = function (action) {
+    var DEBOUNCE_INTERVAL = 500;
+    var lastTimeout;
+
+    if (lastTimeout) {
+      window.clearTimeout(lastTimeout);
+    }
+    lastTimeout = window.setTimeout(action, DEBOUNCE_INTERVAL);
+  };
+
   return {
     randomNumber: randomNumber,
     randomArrValue: randomArrValue,
-    randomArrLength: randomArrLength
+    randomArrLength: randomArrLength,
+    disableDebounce: disableDebounce
   };
 })();

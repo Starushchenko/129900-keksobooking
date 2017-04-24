@@ -9,27 +9,18 @@
     xhr.addEventListener('load', function () {
 
       var errorMessage;
-      switch (xhr.status) {
-        case 200:
-          onLoad(xhr.response);
-          break;
-        case 400:
-          errorMessage = 'Неверный запрос';
-          break;
-        case 404:
-          errorMessage = 'Ничего не найдено';
-          break;
-        case 500:
-          errorMessage = 'Ошибка сервера';
-          break;
-        case 503:
-          errorMessage = 'Техническая ошибка на сервере';
-          break;
+      var errorMap = {
+        '400': 'Неверный запрос',
+        '404': 'Ничего не найдено',
+        '500': 'Ошибка сервера',
+        '503': 'Техническая ошибка на сервере'
+      };
 
-        default:
-          errorMessage = 'Неизвестный статус: ' + xhr.status + ' ' + xhr.statusText;
-      }
-      if (errorMessage) {
+      errorMessage = errorMap[xhr.status];
+
+      if (xhr.status === 200) {
+        onLoad(xhr.response);
+      } else if (errorMessage) {
         onError(errorMessage);
       }
     });

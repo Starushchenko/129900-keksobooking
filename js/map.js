@@ -19,7 +19,7 @@ var loadSuccessHandler = function (data) {
 var loadErrorHandler = function (errorMessage) {
   var node = document.createElement('div');
 
-  node.textContent = errorMessage;
+  node.innerHTML = errorMessage + '<p><a href="' + document.location.href + '">Перезагрузите страницу<a></p>';
   node.classList.add('load-error');
   mapContainer.insertAdjacentElement('afterbegin', node);
 };

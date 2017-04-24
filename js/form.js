@@ -6,7 +6,7 @@
   var checkOutTimeSelect = document.querySelector('#timeout');
   var lodgeTypeSelect = document.querySelector('#type');
   var lodgePriceInput = document.querySelector('#price');
-  var roomAmountSelect = document.querySelector('#room_number');
+  var roomNumberSelect = document.querySelector('#room_number');
   var lodgeCapacitySelect = document.querySelector('#capacity');
 
   var syncValues = function (element, value) {
@@ -34,8 +34,8 @@
     window.synchronizeFields(lodgeTypeSelect, lodgePriceInput, ['Квартира', 'Лачуга', 'Дворец'], ['1000', '0', '1000000'], syncValueWithMin);
   });
 
-  roomAmountSelect.addEventListener('change', function () {
-    window.synchronizeFields(roomAmountSelect, lodgeCapacitySelect, ['1 комната', '2 комнаты', '100 комнат'], ['не для гостей', 'для 3 гостей', 'для 3 гостей'], syncValues);
+  roomNumberSelect.addEventListener('change', function () {
+    window.synchronizeFields(roomNumberSelect, lodgeCapacitySelect, ['1 комната', '2 комнаты', '100 комнат'], ['не для гостей', 'для 3 гостей', 'для 3 гостей'], syncValues);
   });
 
   noticeForm.addEventListener('invalid', function (evt) {

@@ -4,62 +4,60 @@ var mapContainer = document.querySelector('.tokyo');
 var pinMap = mapContainer.querySelector('.tokyo__pin-map');
 var adsData = [];
 var filters = document.querySelector('.tokyo__filters');
-var housingType = filters.querySelector('#housing_type').value;
-var housingPrice = filters.querySelector('#housing_price').value;
-var housingRoomNumber = filters.querySelector('#housing_room-number').value;
-var housingGuestsNumber = filters.querySelector('#housing_guests-number').value;
+var housingTypeSelector = filters.querySelector('#housing_type');
+var housingPriceSelector = filters.querySelector('#housing_price');
+var housingRoomNumberSelector = filters.querySelector('#housing_room-number');
+var housingGuestsNumberSelector = filters.querySelector('#housing_guests-number');
 // Чекбоксы удобств (временно не сделал)
-
 filters.addEventListener('change', function (evt) {
   updateData();
 });
 
 var updateData = function () {
+  var housingTypeValue = housingTypeSelector.options[housingTypeSelector.selectedIndex].value;
+  var housingPriceValue = housingPriceSelector.options[housingPriceSelector.selectedIndex].value;
+  var housingRoomNumberValue = housingRoomNumberSelector.options[housingRoomNumberSelector.selectedIndex].value;
+  var housingGuestsNumberValue = housingGuestsNumberSelector.options[housingGuestsNumberSelector.selectedIndex].value;
+  var adsDataCopy = adsData.slice();
 
-  var filteredByTypeLodges = adsData.filter(function (it) {
-    if (housingType === 'any') {
+  var filteredData = adsDataCopy.filter(function (it) {
+    if (housingTypeValue === 'any') {
       return true;
     } else {
-      return it.offer.type === housingType;
+      return it.offer.type === housingTypeValue;
     }
-  });
-
-  var filteredByPriceLodges = adsData.filter(function (it) {
-    if (housingPrice === 'middle') {
-      return ((it.offer.price >= 10000) && (it.offer.price <= 50000));
-    } else if (housingPrice === 'low') {
+  }).filter(function (it) {
+    if (housingPriceValue === 'middle') {
+      return true;
+    } else if (housingPriceValue === 'low') {
       return it.offer.price < 10000;
-    } else if (housingPrice === 'high') {
+    } else if (housingPriceValue === 'high') {
       return it.offer.price >= 50000;
     } else {
       return true;
     }
-  });
-
-  var filteredByRoomsLodges = adsData.filter(function (it) {
-    if (housingRoomNumber === 'any') {
+  }).filter(function (it, index) {
+    if (housingRoomNumberValue === 'any') {
       return true;
     } else {
-      return it.offer.rooms === housingRoomNumber;
+      return it.offer.rooms === +housingRoomNumberValue;
+    }
+  }).filter(function (it) {
+    if (housingGuestsNumberValue === 'any') {
+      return true;
+    } else {
+      return it.offer.guests === +housingGuestsNumberValue;
     }
   });
 
-  var filteredByGuestsLodges = adsData.filter(function (it) {
-    if (housingGuestsNumber === 'any') {
-      return true;
-    } else {
-      return it.offer.guests === housingGuestsNumber;
-    }
-  });
+//  var filteredData = filteredByTypeLodges.concat(filteredByPriceLodges).concat(filteredByRoomsLodges).concat(filteredByGuestsLodges);
 
-  var filteredData = filteredByTypeLodges.concat(filteredByPriceLodges).concat(filteredByRoomsLodges).concat(filteredByGuestsLodges);
-
-  var uniqueAds =
+/*  var uniqueAds =
     filteredData.filter(function (it, i) {
       return filteredData.indexOf(it) === i;
-    });
+    });*/
 
-  window.pins.renderPins(pinMap, uniqueAds, pinClickHandler);
+  window.pins.renderPins(pinMap, filteredData, pinClickHandler);
 };
 
 var loadSuccessHandler = function (data) {
@@ -85,4 +83,3 @@ var cardCloseHandler = function () {
 };
 
 window.load('https://intensive-javascript-server-kjgvxfepjl.now.sh/keksobooking/data', loadSuccessHandler, loadErrorHandler);
-

@@ -12,3 +12,4 @@ var cardCloseHandler = function () {
 };
 
 window.pins.renderPins(pinMap, window.getAdsCollection(), pinClickHandler);
+

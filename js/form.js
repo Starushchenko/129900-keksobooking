@@ -8,6 +8,8 @@
   var lodgePriceInput = noticeForm.querySelector('#price');
   var roomNumberSelect = noticeForm.querySelector('#room_number');
   var lodgeCapacitySelect = noticeForm.querySelector('#capacity');
+  var pinHandle = document.querySelector('.pin__main');
+  var addressField = document.querySelector('#address');
 
   var syncValues = function (element, value) {
     element.value = value;
@@ -47,4 +49,9 @@
     noticeForm.reset();
   });
 
+  window.setDraggable(pinHandle, function (x, y) {
+    addressField.value = 'x: ' + Math.floor(x + pinHandle.clientWidth / 2) +
+      'px, y: ' + Math.floor(y + pinHandle.clientHeight) + ' px';
+
+  });
 })();

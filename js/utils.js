@@ -5,13 +5,17 @@ window.utils = (function () {
     return Math.round(Math.random() * (max - min) + min);
   };
 
-  var randomArrValue = function (array) {
+  var randomArrIndex = function (array) {
     return Math.floor(Math.random() * array.length);
   };
 
   var randomArrLength = function (array) {
     array.length = Math.round(randomNumber(1, array.length));
     return array;
+  };
+
+  var randomArrSequence = function (array) {
+    return Math.random() - 0.5;
   };
 
   var disableDebounce = function (action) {
@@ -26,8 +30,9 @@ window.utils = (function () {
 
   return {
     randomNumber: randomNumber,
-    randomArrValue: randomArrValue,
+    randomArrIndex: randomArrIndex,
     randomArrLength: randomArrLength,
+    randomArrSequence: randomArrSequence,
     disableDebounce: disableDebounce
   };
 })();

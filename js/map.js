@@ -1,6 +1,6 @@
 'use strict';
 
-window.map = (function () {
+(function () {
   var mapContainer = document.querySelector('.tokyo');
   var pinMap = mapContainer.querySelector('.tokyo__pin-map');
 

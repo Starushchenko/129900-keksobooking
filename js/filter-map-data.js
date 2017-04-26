@@ -1,8 +1,9 @@
 'use strict';
 
 window.filterMapData = (function () {
-  return function (adsData, adsMap, elementClickHandler, callback) {
+  return function (adsData, elementClickHandler, callback) {
     var filters = document.querySelector('.tokyo__filters');
+    var filtersMap = document.querySelector('.tokyo__pin-map');
     var housingTypeSelector = filters.querySelector('#housing_type');
     var housingPriceSelector = filters.querySelector('#housing_price');
     var housingRoomNumberSelector = filters.querySelector('#housing_room-number');
@@ -19,41 +20,43 @@ window.filterMapData = (function () {
 
     var adsDataCopy = adsData.slice();
 
-    var filteredData = adsDataCopy.filter(function (it) {
-      if (housingTypeValue === 'any') {
-        return true;
-      } else {
-        return it.offer.type === housingTypeValue;
-      }
-    }).filter(function (it) {
-      if (housingPriceValue === 'middle') {
-        return true;
-      } else if (housingPriceValue === 'low') {
-        return it.offer.price < 10000;
-      } else if (housingPriceValue === 'high') {
-        return it.offer.price >= 50000;
-      } else {
-        return true;
-      }
-    }).filter(function (it, index) {
-      if (housingRoomNumberValue === 'any') {
-        return true;
-      } else {
-        return it.offer.rooms === +housingRoomNumberValue;
-      }
-    }).filter(function (it) {
-      if (housingGuestsNumberValue === 'any') {
-        return true;
-      } else {
-        return it.offer.guests === +housingGuestsNumberValue;
-      }
-    }).filter(function (it) {
-      return featuresSelectedArray.every(function (elem) {
-        return it.offer.features.indexOf(elem) > -1;
-      });
-    });
+    var filterByType = function (dataElement) {
+      return (housingTypeValue === 'any') ? true : dataElement.offer.type === housingTypeValue;
+    };
 
-    callback(adsMap, filteredData, elementClickHandler);
-//    window.pins.renderPins(pinMap, filteredData, pinClickHandler);
+    var filterByPrice = function (dataElement) {
+      if (housingPriceValue === 'middle') {
+        return ((dataElement.offer.price >= 10000) && (dataElement.offer.price < 50000));
+      } else if (housingPriceValue === 'low') {
+        return dataElement.offer.price < 10000;
+      } else if (housingPriceValue === 'high') {
+        return dataElement.offer.price >= 50000;
+      } else {
+        return true;
+      }
+    };
+
+    var filterByRoomNumber = function (dataElement) {
+      return (housingRoomNumberValue === 'any') ? true : dataElement.offer.rooms === +housingRoomNumberValue;
+    };
+
+    var filterByGuestNumber = function (dataElement) {
+      return (housingGuestsNumberValue === 'any') ? true : dataElement.offer.guests === +housingGuestsNumberValue;
+    };
+
+    var filterByFeatures = function (dataElement) {
+      return featuresSelectedArray.every(function (elem) {
+        return dataElement.offer.features.indexOf(elem) > -1;
+      });
+    };
+
+    var filteredData = adsDataCopy
+      .filter(filterByType)
+      .filter(filterByPrice)
+      .filter(filterByRoomNumber)
+      .filter(filterByGuestNumber)
+      .filter(filterByFeatures);
+
+    callback(filtersMap, filteredData, elementClickHandler);
   };
 })();

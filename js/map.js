@@ -8,7 +8,7 @@ window.map = (function () {
   var adsData = [];
 
   filters.addEventListener('change', function (evt) {
-    window.utils.disableDebounce(window.filterMapData(adsData, pinMap, pinClickHandler, window.pins.renderPins));
+    window.utils.debounce(window.filterMapData(adsData, pinClickHandler, window.pins.renderPins), 500);
   });
 
   var loadSuccessHandler = function (data) {

@@ -5,8 +5,8 @@ window.utils = (function () {
     return Math.round(Math.random() * (max - min) + min);
   };
 
-  var randomArrIndex = function (array) {
-    return Math.floor(Math.random() * array.length);
+  var randomOfLimitedLength = function (objectLength) {
+    return Math.floor(Math.random() * objectLength);
   };
 
   var randomArrLength = function (array) {
@@ -18,21 +18,20 @@ window.utils = (function () {
     return Math.random() - 0.5;
   };
 
-  var disableDebounce = function (action) {
-    var DEBOUNCE_INTERVAL = 500;
+  var debounce = function (action, debounceInterval) {
     var lastTimeout;
 
     if (lastTimeout) {
       window.clearTimeout(lastTimeout);
     }
-    lastTimeout = window.setTimeout(action, DEBOUNCE_INTERVAL);
+    lastTimeout = window.setTimeout(action, debounceInterval);
   };
 
   return {
     randomNumber: randomNumber,
-    randomArrIndex: randomArrIndex,
+    randomOfLimitedLength: randomOfLimitedLength,
     randomArrLength: randomArrLength,
     randomArrSequence: randomArrSequence,
-    disableDebounce: disableDebounce
+    debounce: debounce
   };
 })();

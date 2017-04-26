@@ -6,59 +6,17 @@
   var checkOutTimeSelect = document.querySelector('#timeout');
   var lodgeTypeSelect = document.querySelector('#type');
   var lodgePriceInput = document.querySelector('#price');
-  var roomNumberSelect = document.querySelector('#room_number');
+  var roomAmountSelect = document.querySelector('#room_number');
   var lodgeCapacitySelect = document.querySelector('#capacity');
+  var pinHandle = document.querySelector('.pin__main');
+  var addressField = document.querySelector('#address');
 
-  var synchronizeCheckTime = function () {
-    switch (checkInTimeSelect.value) {
-      case 'После 12':
-        checkOutTimeSelect.value = 'Выезд до 12';
-        break;
-      case 'После 13':
-        checkOutTimeSelect.value = 'Выезд до 13';
-        break;
-      case 'После 14':
-        checkOutTimeSelect.value = 'Выезд до 14';
-        break;
-      default:
-        checkOutTimeSelect.value = 'Выезд до 12';
-        break;
-    }
+  var syncValues = function (element, value) {
+    element.value = value;
   };
 
-  var synchronizeLodgePrices = function () {
-    switch (lodgeTypeSelect.value) {
-      case 'Квартира':
-        lodgePriceInput.setAttribute('min', '1000');
-        break;
-      case 'Лачуга':
-        lodgePriceInput.setAttribute('min', '0');
-        break;
-      case 'Дворец':
-        lodgePriceInput.setAttribute('min', '1000000');
-        lodgePriceInput.removeAttribute('max');
-        break;
-      default:
-        lodgePriceInput.setAttribute('min', '1000');
-        break;
-    }
-  };
-
-  var synchronizeLodgeCapacity = function () {
-    switch (roomNumberSelect.value) {
-      case '1 комната':
-        lodgeCapacitySelect.value = 'не для гостей';
-        break;
-      case '2 комнаты':
-        lodgeCapacitySelect.value = 'для 3 гостей';
-        break;
-      case '100 комнат':
-        lodgeCapacitySelect.value = 'для 3 гостей';
-        break;
-      default:
-        lodgeCapacitySelect.value = 'не для гостей';
-        break;
-    }
+  var syncValueWithMin = function (element, value) {
+    element.setAttribute('min', value);
   };
 
   var removeErrorInputMessage = function (evt) {
@@ -71,15 +29,15 @@
   };
 
   checkInTimeSelect.addEventListener('change', function () {
-    synchronizeCheckTime();
+    window.synchronizeFields(checkInTimeSelect, checkOutTimeSelect, ['После 12', 'После 13', 'После 14'], ['Выезд до 12', 'Выезд до 13', 'Выезд до 14'], syncValues);
   });
 
   lodgeTypeSelect.addEventListener('change', function () {
-    synchronizeLodgePrices();
+    window.synchronizeFields(lodgeTypeSelect, lodgePriceInput, ['Квартира', 'Лачуга', 'Дворец'], ['1000', '0', '1000000'], syncValueWithMin);
   });
 
-  roomNumberSelect.addEventListener('change', function () {
-    synchronizeLodgeCapacity();
+  roomAmountSelect.addEventListener('change', function () {
+    window.synchronizeFields(roomAmountSelect, lodgeCapacitySelect, ['1 комната', '2 комнаты', '100 комнат'], ['не для гостей', 'для 3 гостей', 'для 3 гостей'], syncValues);
   });
 
   noticeForm.addEventListener('invalid', function (evt) {
@@ -91,4 +49,9 @@
     noticeForm.reset();
   });
 
+  window.setDraggable(pinHandle, function (x, y) {
+    addressField.value = 'x: ' + Math.floor(x + pinHandle.clientWidth / 2) +
+      'px, y: ' + Math.floor(y + pinHandle.clientHeight) + ' px';
+
+  });
 })();

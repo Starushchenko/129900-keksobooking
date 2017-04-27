@@ -18,8 +18,8 @@ window.setDraggable = (function () {
     document.addEventListener('mouseup', mouseUpHandler);
   };
 
-  var mouseMoveHandler = function (moveEvt) {
-    moveEvt.preventDefault();
+  var mouseMoveHandler = function (evt) {
+    evt.preventDefault();
 
     var dragConstraints = {
       minX: 0,
@@ -29,13 +29,13 @@ window.setDraggable = (function () {
     };
 
     var shift = {
-      x: startCoords.x - moveEvt.clientX,
-      y: startCoords.y - moveEvt.clientY
+      x: startCoords.x - evt.clientX,
+      y: startCoords.y - evt.clientY
     };
 
     startCoords = {
-      x: moveEvt.clientX,
-      y: moveEvt.clientY
+      x: evt.clientX,
+      y: evt.clientY
     };
 
     var newX = handle.offsetLeft - shift.x;

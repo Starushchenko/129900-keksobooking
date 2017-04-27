@@ -1,15 +1,16 @@
 'use strict';
 
-var ERROR_MAP = {
-  '400': 'Неверный запрос',
-  '404': 'Ничего не найдено',
-  '500': 'Ошибка сервера',
-  '503': 'Техническая ошибка на сервере'
-};
-var HTTP_REQUEST_TIMEOUT = 10000;
-var errorMessage;
-
 window.load = (function () {
+
+  var ERROR_MAP = {
+    '400': 'Неверный запрос',
+    '404': 'Ничего не найдено',
+    '500': 'Ошибка сервера',
+    '503': 'Техническая ошибка на сервере'
+  };
+  var HTTP_REQUEST_TIMEOUT = 10000;
+  var errorMessage;
+
   return function (url, onLoad, onError) {
     var xhr = new XMLHttpRequest();
 

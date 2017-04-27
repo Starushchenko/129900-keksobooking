@@ -2,10 +2,8 @@ body {
     background-color: #f0f0ea;
     margin: 0 auto;
     max-width: 1200px;
-
     font-size: 16px;
     font-family: Roboto, Arial, sans-serif;
-
     color: #353535;
 }
 
@@ -29,12 +27,10 @@ button[type=submit] {
     box-sizing: content-box;
     width: 206px;
     height: 60px;
-
     background-color: white;
     font-size: 22px;
     font-weight: bold;
     font-family: Roboto, Arial, sans-serif;
-
     border-radius: 8px;
     border: 4px solid #ffaa99;
 }
@@ -50,26 +46,32 @@ button[type=submit]:active {
     color: white;
 }
 
-input[type=text], input[type=number], select, textarea {
+input[type=text],
+input[type=number],
+select,
+textarea {
     box-sizing: border-box;
-
     font-size: 18px;
     line-height: 26px;
     padding-left: 14px;
-
     height: 42px;
     width: 222px;
-
     border: 1px solid #d9d9d3;
     border-radius: 4px;
     background-color: white;
 }
 
-input[type=text]:hover, input[type=number]:hover, select:hover, textarea:hover {
+input[type=text]:hover,
+input[type=number]:hover,
+select:hover,
+textarea:hover {
     border-color: #ffaa99;
 }
 
-input[type=text]:focus, input[type=number]:focus, select:focus, textarea:focus {
+input[type=text]:focus,
+input[type=number]:focus,
+select:focus,
+textarea:focus {
     outline: none;
     box-shadow: 0 0 4px 1px #ff6547;
 }
@@ -88,11 +90,8 @@ select option:hover {
     min-width: 70px;
     height: 45px;
     min-height: 45px;
-
     margin-right: 10px;
-
     float: left;
-
     position: relative;
 }
 
@@ -105,9 +104,7 @@ select option:hover {
     position: absolute;
     top: 0;
     left: 0;
-
     box-sizing: border-box;
-
     border-radius: 4px;
     border: 1px solid #d9d9d3;
 }
@@ -116,11 +113,11 @@ select option:hover {
     position: absolute;
 }
 
-.feature input:hover + span {
+.feature input:hover+span {
     border-color: #ffaa99;
 }
 
-.feature input:checked + span {
+.feature input:checked+span {
     background-color: #ff6547;
     border-color: #ff6547;
 }
@@ -131,7 +128,6 @@ select option:hover {
     min-width: 70px;
     height: 45px;
     min-height: 45px;
-
     background: white url(../img/features-sprite.png) no-repeat;
 }
 
@@ -161,22 +157,16 @@ select option:hover {
 
 .upload {
     position: relative;
-
     box-sizing: border-box;
     margin-right: 5px;
-
     width: 146px;
     min-width: 146px;
     max-width: 146px;
     height: 70px;
-
     text-align: center;
     vertical-align: middle;
-
     border-radius: 4px;
-
     color: #cdcdc7;
-
     border: 2px dashed #b3b3ad;
 }
 
@@ -184,8 +174,8 @@ select option:hover {
     position: absolute;
     z-index: 2;
     opacity: 0;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
 }
 
 .upload:hover {
@@ -195,12 +185,10 @@ select option:hover {
 
 .header {
     z-index: 100;
-
     position: absolute;
     margin: 0 auto;
     width: 1200px;
     text-align: center;
-
     text-transform: uppercase;
 }
 
@@ -222,17 +210,13 @@ select option:hover {
     position: absolute;
     bottom: 0;
     left: 0;
-
     background-color: rgba(3, 28, 45, 0.5);
-
     height: 46px;
 }
 
 .tokyo__filters {
     width: 960px;
-
     margin: 0 auto;
-
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -241,10 +225,8 @@ select option:hover {
 .tokyo__filter {
     font-size: 14px;
     text-indent: 0;
-
     width: 160px;
     height: 30px;
-
     margin-top: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -254,7 +236,6 @@ select option:hover {
     margin-top: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
-
     display: inline;
 }
 
@@ -270,7 +251,6 @@ select option:hover {
     min-width: 30px;
     height: 28px;
     min-height: 28px;
-
     background-size: 100%;
 }
 
@@ -314,7 +294,6 @@ select option:hover {
 .notice__photo {
     display: flex;
     flex-direction: row;
-
     align-items: flex-start;
 }
 
@@ -324,18 +303,13 @@ select option:hover {
 
 .notice__preview {
     box-sizing: border-box;
-
     width: 70px;
     height: 70px;
     min-width: 70px;
-
     border-radius: 4px;
     border: 4px transparent;
-
     overflow: hidden;
-
     text-align: center;
-
     background: #dadad4;
 }
 
@@ -359,7 +333,6 @@ select option:hover {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-
     justify-content: space-between;
     align-items: flex-start;
 }
@@ -402,15 +375,12 @@ select option:hover {
     margin-right: 5px;
     margin-bottom: 5px;
     box-sizing: border-box;
-
     width: 70px;
     height: 70px;
     min-width: 70px;
     max-width: 70px;
-
     border-radius: 4px;
     border: 4px transparent;
-
     background: #dadad4;
 }
 
@@ -424,9 +394,7 @@ select option:hover {
     margin: 0 auto;
     width: 960px;
     padding: 20px 0 40px;
-
     font-size: 12px;
-
     border-top: solid 1px #cccccc;
 }
 
@@ -446,7 +414,6 @@ select option:hover {
 
 .footer-logo {
     position: relative;
-
     padding-top: 55px;
 }
 
@@ -470,12 +437,10 @@ select option:hover {
     height: 29px;
     margin-left: 10px;
     overflow: hidden;
-
     list-style: none;
     font-size: 0;
     vertical-align: top;
     text-indent: -1999em;
-
     background: url("../img/social-sprite.png") no-repeat -59px -59px;
     opacity: 0.6;
 }
@@ -500,7 +465,6 @@ select option:hover {
     position: absolute;
     top: 70px;
     left: 20px;
-
     width: 230px;
     height: 510px;
 }
@@ -511,16 +475,13 @@ select option:hover {
 
 .dialog__close {
     position: absolute;
-
     right: 0;
     bottom: 0;
 }
 
 .dialog__panel {
     background-color: white;
-
     padding: 4px;
-
     border-radius: 4px;
     border: 2px solid transparent;
 }
@@ -563,19 +524,16 @@ select option:hover {
 
 .lodge__features {
     margin: 10px 0;
-
     display: flex;
     flex-direction: row;
 }
 
 .lodge__features .feature__image {
     display: block;
-
     width: 30px;
     min-width: 30px;
     height: 28px;
     min-height: 28px;
-
     background-size: 100%;
 }
 
@@ -610,18 +568,15 @@ select option:hover {
 }
 
 .lodge__photos img {
-  margin: 0 1px;
+    margin: 0 1px;
 }
 
 .pin {
     position: absolute;
-
     width: 56px;
     height: 75px;
-
     top: 340px;
     left: 536px;
-
     background-image: url("../img/pin.png");
 }
 
@@ -641,7 +596,6 @@ select option:hover {
 .pin__main {
     width: 75px;
     height: 94px;
-
     top: 300px;
     left: 600px;
     background-image: url("../img/main-pin.png");
@@ -657,7 +611,7 @@ select option:hover {
 }
 
 .hidden {
-	  display: none;
+    display: none;
 }
 
 .error {
@@ -669,7 +623,7 @@ select option:hover {
     right: 30px;
     top: 30px;
     padding: 20px;
-    background: rgba(255,255,255, 0.5);
+    background: rgba(255, 255, 255, 0.5);
     border: 2px solid #d34a4a;
     color: #d34a4a;
     font-size: 20px;

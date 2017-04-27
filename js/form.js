@@ -49,9 +49,8 @@
     noticeForm.reset();
   });
 
-  window.setDraggable(pinHandle, function (x, y) {
+  window.setDraggable(pinHandle, pinHandle.offsetParent, function (x, y) {
     addressField.value = 'x: ' + Math.floor(x + pinHandle.clientWidth / 2) +
-      'px, y: ' + Math.floor(y + pinHandle.clientHeight) + ' px';
-
+      ', y: ' + Math.floor(y + pinHandle.clientHeight);
   });
 })();

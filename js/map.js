@@ -1,6 +1,6 @@
 'use strict';
 
-window.map = (function () {
+(function () {
 
   var filters = document.querySelector('.tokyo__filters');
   var mapContainer = document.querySelector('.tokyo');
@@ -8,7 +8,9 @@ window.map = (function () {
   var adsData = [];
 
   filters.addEventListener('change', function (evt) {
-    window.utils.debounce(window.filterMapData(adsData, pinClickHandler, window.pins.renderPins), 500);
+    window.utils.debounce(function () {
+      window.filterMapData(adsData, pinClickHandler, window.pins.renderPins);
+    }, 500);
   });
 
   var loadSuccessHandler = function (data) {

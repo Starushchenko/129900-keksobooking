@@ -4,13 +4,6 @@ window.pins = (function () {
 
   var pinEventHandler = null;
 
-  /*
-   * Создание одного пина из элемента массива с данными. Внутри описания элемента задаем обработчик события на клик. В момент объявления он равен null(pinData)
-   * Затем - функция отрисовки пинов по циклу элементов массива.
-   * Callback перезаписывает pinEventHandler, который опеределен в createLodgePin как функция, исполняемая по клику на пин
-   * При вызове renderPins в map.js используя pinData параметром функции callback, pinData будет равна параметру передаваемому в createLodgePin. Цикл вызовов createLodgePin() происходит с элементами массива adsList[i]. Следовательно, pinEventHandler использует параметром текущий adsList[i].
-   */
-
   var createLodgePin = function (pinData) {
     var lodgePin = document.createElement('div');
     lodgePin.className = 'pin';
@@ -37,7 +30,6 @@ window.pins = (function () {
     }
     renderPlace.appendChild(lodgePins);
   };
-
 
   var setPinInactive = function () {
     var activePin = document.querySelector('.pin--active');

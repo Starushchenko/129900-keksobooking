@@ -6,32 +6,17 @@ window.utils = (function () {
       return Math.random() - 0.5;
     },
 
-    debounce: function (action, debounceInterval) {
-      var lastTimeout;
+    debounce: function () {
+      var DEFAULT_DEBOUNCE_INTERVAL = 300; // ms
+      var lastTimeout = null;
 
-      if (lastTimeout) {
-        window.clearTimeout(lastTimeout);
-      }
-      lastTimeout = window.setTimeout(action, debounceInterval);
-
-      /* var ACTIVE = 1;
-
-      var currentDelay = null;
-
-      return function () {
-        if (currentDelay) {
-          return;
+      return function (action, debounceInterval) {
+        if (lastTimeout) {
+          window.clearTimeout(lastTimeout);
         }
-
-        action();
-
-        currentDelay = ACTIVE;
-
-        setTimeout(function () {
-          currentDelay = null;
-        }, debounceInterval);
-
-      };*/
-    }
+        var timeout = debounceInterval || DEFAULT_DEBOUNCE_INTERVAL;
+        lastTimeout = window.setTimeout(action, timeout);
+      };
+    }()
   };
 })();

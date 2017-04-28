@@ -1,26 +1,28 @@
 'use strict';
 
 window.showCard = (function () {
-  var checkLodgeType = function (ad) {
-    switch (ad.offer.type) {
-      case 'flat':
-        return 'Квартира';
-      case 'bungalo':
-        return 'Бунгало';
-      case 'house':
-        return 'Дом';
-      default:
-        return 'Жильё';
-    }
+  var LODGE_TYPES_MAP = {
+    'flat': 'Квартира',
+    'bungalo': 'Бунгало',
+    'house': 'Дом'
   };
 
+  var lodgeTemplate = document.querySelector('#lodge-template').content;
+
+  var offerDialog = document.querySelector('#offer-dialog');
+  var ownerAvatar = offerDialog.querySelector('.dialog__title img');
+
+  var dialog = document.querySelector('.dialog');
+  var dialogClose = document.querySelector('.dialog__close');
+  dialogClose.setAttribute('tabindex', '0');
+  var closeHandler = null;
+
   var createAdLayout = function (adElement) {
-    var lodgeTemplate = document.querySelector('#lodge-template').content;
     var lodgeLayout = lodgeTemplate.cloneNode(true);
+
     lodgeLayout.querySelector('.lodge__title').innerHTML = adElement.offer.title;
     lodgeLayout.querySelector('.lodge__price').innerHTML = adElement.offer.price + ' &#x20bd;/ночь';
-
-    lodgeLayout.querySelector('.lodge__type').innerHTML = checkLodgeType(adElement);
+    lodgeLayout.querySelector('.lodge__type').innerHTML = LODGE_TYPES_MAP[adElement.offer.type];
     lodgeLayout.querySelector('.lodge__rooms-and-guests').innerHTML = 'Для ' + adElement.offer.guests + ' гостей в ' + adElement.offer.rooms + ' комнатах';
     lodgeLayout.querySelector('.lodge__checkin-time').innerHTML = 'Заезд после ' + adElement.offer.checkin + ', выезд до ' + adElement.offer.checkout;
 
@@ -35,18 +37,11 @@ window.showCard = (function () {
   var renderSideAd = function (objectElement) {
     var template = createAdLayout(objectElement);
 
-    var offerDialog = document.querySelector('#offer-dialog');
     var dialogPanel = offerDialog.querySelector('.dialog__panel');
     offerDialog.replaceChild(template, dialogPanel);
 
-    var ownerAvatar = offerDialog.querySelector('.dialog__title img');
     ownerAvatar.setAttribute('src', objectElement.author.avatar);
   };
-
-  var dialog = document.querySelector('.dialog');
-  var dialogClose = document.querySelector('.dialog__close');
-  dialogClose.setAttribute('tabindex', '0');
-  var closeHandler = null;
 
   var cardClickHandler = function (evt) {
     hideCard();
@@ -64,8 +59,23 @@ window.showCard = (function () {
     }
   };
 
-  var showCard = function (handler, cb) {
+  var hideCard = function () {
+    dialog.classList.add('hidden');
+    if (typeof closeHandler === 'function') {
+      closeHandler();
+      closeHandler = null;
+    }
+
+    document.removeEventListener('keydown', cardEscHandler);
+
+    dialogClose.removeEventListener('click', cardClickHandler);
+
+    dialogClose.removeEventListener('keydown', cardEnterHandler);
+  };
+
+  return function (handler, cb) {
     closeHandler = cb;
+
     dialog.classList.remove('hidden');
 
     renderSideAd(handler);
@@ -76,16 +86,4 @@ window.showCard = (function () {
 
     dialogClose.addEventListener('keydown', cardEnterHandler);
   };
-
-  var hideCard = function () {
-    dialog.classList.add('hidden');
-    if (typeof closeHandler === 'function') {
-      closeHandler();
-      closeHandler = null;
-    }
-
-    document.removeEventListener('keydown', cardEscHandler);
-  };
-
-  return showCard;
 })();

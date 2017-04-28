@@ -23,10 +23,19 @@ window.pins = (function () {
   };
 
   var renderPins = function (renderPlace, adsList, callback) {
-    pinEventHandler = callback;
+    var existingPins = document.querySelectorAll('.pin:not(.pin__main)');
     var lodgePins = document.createDocumentFragment();
+
+    pinEventHandler = callback;
+
     for (var i = 0; i < adsList.length; i++) {
       lodgePins.appendChild(createLodgePin(adsList[i]));
+    }
+
+    if (existingPins) {
+      for (var n = 0; n < existingPins.length; n++) {
+        renderPlace.removeChild(existingPins[n]);
+      }
     }
     renderPlace.appendChild(lodgePins);
   };

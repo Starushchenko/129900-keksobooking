@@ -1,22 +1,22 @@
 'use strict';
 
 window.utils = (function () {
-  var randomNumber = function (min, max) {
-    return Math.round(Math.random() * (max - min) + min);
-  };
-
-  var randomArrValue = function (array) {
-    return Math.floor(Math.random() * array.length);
-  };
-
-  var randomArrLength = function (array) {
-    array.length = Math.round(randomNumber(1, array.length));
-    return array;
-  };
-
   return {
-    randomNumber: randomNumber,
-    randomArrValue: randomArrValue,
-    randomArrLength: randomArrLength
+    randomArrSequence: function (array) {
+      return Math.random() - 0.5;
+    },
+
+    debounce: function () {
+      var DEFAULT_DEBOUNCE_INTERVAL = 300; // ms
+      var lastTimeout = null;
+
+      return function (action, debounceInterval) {
+        if (lastTimeout) {
+          window.clearTimeout(lastTimeout);
+        }
+        var timeout = debounceInterval || DEFAULT_DEBOUNCE_INTERVAL;
+        lastTimeout = window.setTimeout(action, timeout);
+      };
+    }()
   };
 })();

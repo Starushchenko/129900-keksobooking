@@ -49,8 +49,8 @@ window.setDraggable = (function () {
     callback(newX, newY);
   };
 
-  var mouseUpHandler = function (upEvt) {
-    upEvt.preventDefault();
+  var mouseUpHandler = function (evt) {
+    evt.preventDefault();
 
     document.removeEventListener('mousemove', mouseMoveHandler);
     document.removeEventListener('mouseup', mouseUpHandler);

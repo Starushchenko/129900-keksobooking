@@ -2,12 +2,12 @@
 
 (function () {
   var noticeForm = document.querySelector('.notice__form');
-  var checkInTimeSelect = document.querySelector('#time');
-  var checkOutTimeSelect = document.querySelector('#timeout');
-  var lodgeTypeSelect = document.querySelector('#type');
-  var lodgePriceInput = document.querySelector('#price');
-  var roomNumberSelect = document.querySelector('#room_number');
-  var lodgeCapacitySelect = document.querySelector('#capacity');
+  var checkInTimeSelect = noticeForm.querySelector('#time');
+  var checkOutTimeSelect = noticeForm.querySelector('#timeout');
+  var lodgeTypeSelect = noticeForm.querySelector('#type');
+  var lodgePriceInput = noticeForm.querySelector('#price');
+  var roomNumberSelect = noticeForm.querySelector('#room_number');
+  var lodgeCapacitySelect = noticeForm.querySelector('#capacity');
   var pinHandle = document.querySelector('.pin__main');
   var addressField = document.querySelector('#address');
 

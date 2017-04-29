@@ -11,8 +11,6 @@
   var pinHandle = document.querySelector('.pin__main');
   var addressField = document.querySelector('#address');
 
-  var noticeErrorInputs = document.querySelectorAll('.error');
-
   var syncValues = function (element, value) {
     element.value = value;
   };
@@ -22,7 +20,8 @@
   };
 
   var removeErrorInputMessage = function (evt) {
-    noticeErrorInputs.forEach(function (element) {
+    var noticeErrorInputs = document.querySelectorAll('.error');
+    [].forEach.call(noticeErrorInputs, function (element) {
       element.addEventListener('input', function () {
         evt.target.classList.remove('error');
       });

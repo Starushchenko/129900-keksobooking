@@ -11,6 +11,8 @@
   var pinHandle = document.querySelector('.pin__main');
   var addressField = document.querySelector('#address');
 
+  var noticeErrorInputs = document.querySelectorAll('.error');
+
   var syncValues = function (element, value) {
     element.value = value;
   };
@@ -20,16 +22,19 @@
   };
 
   var removeErrorInputMessage = function (evt) {
-    var noticeErrorInputs = document.querySelectorAll('.error');
-    for (var k = 0; k < noticeErrorInputs.length; k++) {
-      noticeErrorInputs[k].addEventListener('input', function () {
+    noticeErrorInputs.forEach(function (element) {
+      element.addEventListener('input', function () {
         evt.target.classList.remove('error');
       });
-    }
+    });
   };
 
   checkInTimeSelect.addEventListener('change', function () {
     window.synchronizeFields(checkInTimeSelect, checkOutTimeSelect, ['После 12', 'После 13', 'После 14'], ['Выезд до 12', 'Выезд до 13', 'Выезд до 14'], syncValues);
+  });
+
+  checkOutTimeSelect.addEventListener('change', function () {
+    window.synchronizeFields(checkOutTimeSelect, checkInTimeSelect, ['Выезд до 12', 'Выезд до 13', 'Выезд до 14'], ['После 12', 'После 13', 'После 14'], syncValues);
   });
 
   lodgeTypeSelect.addEventListener('change', function () {
@@ -38,6 +43,10 @@
 
   roomNumberSelect.addEventListener('change', function () {
     window.synchronizeFields(roomNumberSelect, lodgeCapacitySelect, ['1 комната', '2 комнаты', '100 комнат'], ['не для гостей', 'для 3 гостей', 'для 3 гостей'], syncValues);
+  });
+
+  lodgeCapacitySelect.addEventListener('change', function () {
+    window.synchronizeFields(lodgeCapacitySelect, roomNumberSelect, ['не для гостей', 'для 3 гостей', 'для 3 гостей'], ['1 комната', '2 комнаты', '100 комнат'], syncValues);
   });
 
   noticeForm.addEventListener('invalid', function (evt) {

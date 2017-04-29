@@ -33,11 +33,15 @@ window.filterMapData = (function () {
   };
 
   var filterByNumberRoom = function (dataElement) {
-    return (housingRoomNumberValue === 'any') ? true : dataElement.offer.rooms === parseInt(housingRoomNumberValue, 10);
+    return housingRoomNumberValue === 'any' ?
+      true :
+      dataElement.offer.rooms === parseInt(housingRoomNumberValue, 10);
   };
 
   var filterByNumberGuests = function (dataElement) {
-    return (housingGuestsNumberValue === 'any') ? true : dataElement.offer.guests === parseInt(housingGuestsNumberValue, 10);
+    return housingGuestsNumberValue === 'any' ?
+      true :
+      dataElement.offer.guests === parseInt(housingGuestsNumberValue, 10);
   };
 
   var filterByFeatures = function (dataElement) {

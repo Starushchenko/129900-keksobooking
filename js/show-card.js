@@ -13,7 +13,7 @@ window.showCard = (function () {
   var ownerAvatar = offerDialog.querySelector('.dialog__title img');
 
   var dialog = document.querySelector('.dialog');
-  var dialogClose = document.querySelector('.dialog__close');
+  var dialogClose = dialog.querySelector('.dialog__close');
   dialogClose.setAttribute('tabindex', '0');
   var closeHandler = null;
 

@@ -11,7 +11,7 @@ window.utils = (function () {
       var lastTimeout = null;
 
       return function (action, debounceInterval) {
-        if (lastTimeout) {
+        if (lastTimeout !== null) {
           window.clearTimeout(lastTimeout);
         }
         var timeout = debounceInterval || DEFAULT_DEBOUNCE_INTERVAL;

@@ -36,6 +36,7 @@
     var randomDataElements = randomSortedData.slice(0, 3);
 
     window.pins.renderPins(pinMap, randomDataElements, pinClickHandler);
+    window.showCard(randomDataElements[0], cardCloseHandler);
   };
 
   window.load('https://intensive-javascript-server-kjgvxfepjl.now.sh/keksobooking/data', loadSuccessHandler, loadErrorHandler);

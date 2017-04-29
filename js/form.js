@@ -8,7 +8,6 @@
   var LODGE_NUMBER_ROOMS = ['1 комната', '2 комнаты', '100 комнат'];
   var LODGE_CAPACITIES = ['не для гостей', 'для 3 гостей', 'для 3 гостей'];
 
-
   var noticeForm = document.querySelector('.notice__form');
   var checkInTimeSelect = noticeForm.querySelector('#time');
   var checkOutTimeSelect = noticeForm.querySelector('#timeout');
